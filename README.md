@@ -17,6 +17,7 @@ I own this keyboard, I like it, and I wanted it to have the wheel and the extra 
 - A right click displays a popup menu  
   ![image](https://user-images.githubusercontent.com/128949/190868152-d38165ce-2bb5-45b8-b733-043a7e13b296.png)
 - The main window only displays few information  
-  ![image](https://user-images.githubusercontent.com/128949/190868239-5a7a0613-584c-4256-91ff-266fe04d3df1.png)
+  ![image](https://github.com/yaourt/MagicWheelAndKeys/assets/128949/49f38ec0-5b49-4c83-b1b0-ccb418392814)
+
 - To exit the application, you must click on the Exit menu item (main window or tray popup menu).  
   Closing the main window does not quit the application
