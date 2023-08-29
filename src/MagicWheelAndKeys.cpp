@@ -285,17 +285,32 @@ void HandleInput(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 				memcpy(&data, raw->data.hid.bRawData, sizeof(DWORD64));
 				HandleScancode(data);
 			}
+			
+			if (IsDebuggerPresent()) {
+				const UINT str_size = 500;
+				char debug_str[str_size];
+				UINT cx;
+				cx = snprintf(debug_str, str_size, "Vendor 0x%08X\nProduct 0x%08X\n", (unsigned int)deviceInfo.hid.dwVendorId, (unsigned int)deviceInfo.hid.dwProductId);
+				//std::ostringstream stream;
+				//stream << "Vendor 0x" << std::hex << deviceInfo.hid.dwVendorId << std::endl; // Expected: 0x0000045E
+				//stream << "Product 0x" << std::hex << deviceInfo.hid.dwProductId << std::endl; // Expected: 0x00000048
 
-			//std::wcout << "Vendor 0x" << std::hex << deviceInfo.hid.dwVendorId << std::endl; // Expected: 0x0000045E
-			//std::wcout << "Product 0x" << std::hex << deviceInfo.hid.dwProductId << std::endl; // Expected: 0x00000048
+				for (DWORD itemIdx = 0; itemIdx < raw->data.hid.dwCount; itemIdx++) {
+					DWORD content = 0;
+					for (DWORD data = 0; data < raw->data.hid.dwSizeHid; data++) {
+						//DWORD idx = (itemIdx * raw->data.hid.dwSizeHid) + data;
+						//stream << "0x" << std::hex << raw->data.hid.bRawData[idx] << " ";
+						content += raw->data.hid.bRawData[data];
+					}
+					cx += snprintf(debug_str + cx, str_size - cx, "0x%08X ", (unsigned int)content);
+				}
+				//stream << std::endl;
+				snprintf(debug_str + cx, str_size - cx, "\n");
 
-			//for (DWORD itemIdx = 0; itemIdx < raw->data.hid.dwCount; itemIdx++) {
-			//	for (DWORD data = 0; data < raw->data.hid.dwSizeHid; data++) {
-			//		DWORD idx = (itemIdx * raw->data.hid.dwSizeHid) + data;
-			//		std::wcout << "0x" << std::hex << raw->data.hid.bRawData[idx] << " ";
-			//	}
-			//}
-			//std::wcout << std::endl;
+				//std::string str = stream.str();
+				//std::wstring temp = std::wstring(str.begin(), str.end());
+				OutputDebugStringA(debug_str);
+			}
 		}
 	}
 
@@ -399,6 +414,112 @@ void HandleScancode(DWORD64 scancode) {
 		delete[] keys;
 		break;
 	}
+
+	case KEY_HELP: {
+		const UINT nbkeys = 1;
+		WORD* keys = new WORD[nbkeys]{ VK_F1 }; // F1
+		KeyboardInput(nbkeys, keys, &inputs, nbInputs);
+		delete[] keys;
+		break;
+	}
+	case KEY_OFFICE_HOME: {
+		const UINT nbkeys = 1;
+		WORD* keys = new WORD[nbkeys]{ VK_F2 }; // F2
+		KeyboardInput(nbkeys, keys, &inputs, nbInputs);
+		delete[] keys;
+		break;
+	}
+	case KEY_TASK_PANEL: {
+		const UINT nbkeys = 1;
+		WORD* keys = new WORD[nbkeys]{ VK_F3 }; // F3
+		KeyboardInput(nbkeys, keys, &inputs, nbInputs);
+		delete[] keys;
+		break;
+	}
+	case KEY_NEW: {
+		const UINT nbkeys = 1;
+		WORD* keys = new WORD[nbkeys]{ VK_F4 }; // F4
+		KeyboardInput(nbkeys, keys, &inputs, nbInputs);
+		delete[] keys;
+		break;
+	}
+	case KEY_OPEN: {
+		const UINT nbkeys = 1;
+		WORD* keys = new WORD[nbkeys]{ VK_F5 }; // F5
+		KeyboardInput(nbkeys, keys, &inputs, nbInputs);
+		delete[] keys;
+		break;
+	}
+	case KEY_CLOSE: {
+		const UINT nbkeys = 1;
+		WORD* keys = new WORD[nbkeys]{ VK_F6 }; // F6
+		KeyboardInput(nbkeys, keys, &inputs, nbInputs);
+		delete[] keys;
+		break;
+	}
+	case KEY_REPLY: {
+		const UINT nbkeys = 1;
+		WORD* keys = new WORD[nbkeys]{ VK_F7 }; // F7
+		KeyboardInput(nbkeys, keys, &inputs, nbInputs);
+		delete[] keys;
+		break;
+	}
+	case KEY_FWD: {
+		const UINT nbkeys = 1;
+		WORD* keys = new WORD[nbkeys]{ VK_F8 }; // F8
+		KeyboardInput(nbkeys, keys, &inputs, nbInputs);
+		delete[] keys;
+		break;
+	}
+	case KEY_SEND: {
+		const UINT nbkeys = 1;
+		WORD* keys = new WORD[nbkeys]{ VK_F9 }; // F9
+		KeyboardInput(nbkeys, keys, &inputs, nbInputs);
+		delete[] keys;
+		break;
+	}
+	case KEY_SPELL: {
+		const UINT nbkeys = 1;
+		WORD* keys = new WORD[nbkeys]{ VK_F10 }; // F10
+		KeyboardInput(nbkeys, keys, &inputs, nbInputs);
+		delete[] keys;
+		break;
+	}
+	case KEY_SAVE: {
+		const UINT nbkeys = 1;
+		WORD* keys = new WORD[nbkeys]{ VK_F11 }; // F11
+		KeyboardInput(nbkeys, keys, &inputs, nbInputs);
+		delete[] keys;
+		break;
+	}
+	case KEY_PRINT: {
+		const UINT nbkeys = 1;
+		WORD* keys = new WORD[nbkeys]{ VK_F12 }; // F12
+		KeyboardInput(nbkeys, keys, &inputs, nbInputs);
+		delete[] keys;
+		break;
+	}
+	case KEY_EQUAL: {
+		const UINT nbkeys = 1;
+		WORD* keys = new WORD[nbkeys]{ VK_INSERT }; // Insert
+		KeyboardInput(nbkeys, keys, &inputs, nbInputs);
+		delete[] keys;
+		break;
+	}
+	case KEY_LEFT_PARENTHESIS: {
+		const UINT nbkeys = 1;
+		WORD* keys = new WORD[nbkeys]{ VK_SNAPSHOT }; // Print screen
+		KeyboardInput(nbkeys, keys, &inputs, nbInputs);
+		delete[] keys;
+		break;
+	}
+	case KEY_RIGHT_PARENTHESIS: {
+		const UINT nbkeys = 1;
+		WORD* keys = new WORD[nbkeys]{ VK_SCROLL }; // Scroll lock
+		KeyboardInput(nbkeys, keys, &inputs, nbInputs);
+		delete[] keys;
+		break;
+	}
 	case KEY_WORD:
 	case KEY_EXCEL:
 	case KEY_WEB:
@@ -410,21 +531,6 @@ void HandleScancode(DWORD64 scancode) {
 	case KEY_VOL_PLUS:
 	case KEY_VOL_MINUS:
 	case KEY_VOL_MUTE:
-	case KEY_HELP:
-	case KEY_OFFICE_HOME:
-	case KEY_TASK_PANEL:
-	case KEY_NEW:
-	case KEY_OPEN:
-	case KEY_CLOSE:
-	case KEY_REPLY:
-	case KEY_FWD:
-	case KEY_SEND:
-	case KEY_SPELL:
-	case KEY_SAVE:
-	case KEY_PRINT:
-	case KEY_EQUAL:
-	case KEY_LEFT_PARENTHESIS:
-	case KEY_RIGHT_PARENTHESIS:
 	//case KEY_SLEEP:
 		break;
 	default:
@@ -453,7 +559,7 @@ void WheelInput(INT nbWheelClick, INPUT** lpinput, UINT& nbinputs) {
 
 void KeyboardInput(UINT nbkeys, WORD* keys, INPUT** lpinputs, UINT& nbinputs) {
 	UINT _nbinputs = nbkeys * 2;
-	INPUT* _inputs = new INPUT[nbkeys * 2];
+	INPUT* _inputs = new INPUT[_nbinputs];
 
 	for (UINT idx = 0; idx < nbkeys; idx++) {
 		_inputs[idx].type = INPUT_KEYBOARD;
@@ -463,12 +569,14 @@ void KeyboardInput(UINT nbkeys, WORD* keys, INPUT** lpinputs, UINT& nbinputs) {
 		_inputs[idx].ki.time = 0;
 		_inputs[idx].ki.dwExtraInfo = 0;
 
-		_inputs[idx + nbkeys].type = INPUT_KEYBOARD;
-		_inputs[idx + nbkeys].ki.wVk = keys[idx];
-		_inputs[idx + nbkeys].ki.wScan = 0;
-		_inputs[idx + nbkeys].ki.dwFlags = KEYEVENTF_KEYUP;
-		_inputs[idx + nbkeys].ki.time = 0;
-		_inputs[idx + nbkeys].ki.dwExtraInfo = 0;
+		if (idx + nbkeys < _nbinputs) {
+			_inputs[idx + nbkeys].type = INPUT_KEYBOARD;
+			_inputs[idx + nbkeys].ki.wVk = keys[idx];
+			_inputs[idx + nbkeys].ki.wScan = 0;
+			_inputs[idx + nbkeys].ki.dwFlags = KEYEVENTF_KEYUP;
+			_inputs[idx + nbkeys].ki.time = 0;
+			_inputs[idx + nbkeys].ki.dwExtraInfo = 0;
+		}
 	}
 	
 	*lpinputs = _inputs;
@@ -486,8 +594,10 @@ void PaintIt(HDC hdc) {
 - The wheel works with 4 speeds up and down\r\n\
 - Cut / Copy / Paste : work as intended (Ctrl + X / C / V)\r\n\
 - Application left : Show desktop\r\n\
-- Application right : Previsou window (Alt + Tab)\r\n\
+- Application right : Previous window (Alt + Tab)\r\n\
 - Undo / Redo : work as intended (Ctrl + Z / Y)\r\n\
+- F(unction) keys / Insert / Scroll lock / Print screen\r\n\
+  do not need the function lock key to be turned on\r\n\
 - Others buttons : not yet allocated\r\n");
 //- 8\r\n\
 //- 9\r\n\

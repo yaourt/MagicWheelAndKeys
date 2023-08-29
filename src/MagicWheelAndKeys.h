@@ -6,6 +6,7 @@
 #include <shellapi.h>
 #include "resource.h"
 
+
 const UINT TRAY_ICON = 1;
 const BOOL TRAY_POPUP_MENU_SHOWN = FALSE;
 
